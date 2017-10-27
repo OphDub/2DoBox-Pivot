@@ -1,13 +1,11 @@
 # Project: 2DoBox
 
-Primary goal for this project was to refactor, pivot, and introduce additional features based on another team's project. Following snippet is a summary for the project which served as the foundational code for this project.
+Primary goal for this project was to refactor, pivot, and introduce additional features based on another team's project. The following snippet is a summary for the project which served as the foundational code for this project:
 
-```
 Our project spec as assigned was to create an webpage that is able to accept user input for idea cards that are stored locally on the user's machine. This project also establishes some basic foundations for understanding interaction with user data in a limited scope. Each card is assigned a quality that is dynamic and can be changed by the user via an upvote/downvote. All cards should also persist on the page through reload. Users should also be able to make changes to each idea card and have the changes show dynamically without a page reload. Other project requirements are listed below.
-```
 
 ## Project Requirements
-The project is broken down into four phases: refactor, pivot, introduction of additional features, and extensions. Each section breaks down each 
+The project is broken down into four phases: refactor, pivot, introduction of additional features, and extensions. Each section breaks down general requirements.
 
 #### Phase 1: Refactor
 Refactor the original work. General guidelines for this phase are as follows:
@@ -56,6 +54,7 @@ User Interaction:
     * Become an editable text field, pre-populated with the existing TODO title or task.
     * The user should be able to “commit” their changes by pressing “Enter/Return” or by clicking outside of the text field.
     * If the user reloads the page, their edits will be reflected.
+    
   ##### Filtering
   We’d like our users to be able to easily find specific TODOs they’ve already created, so let’s provide them with a filtering interface on the TODO list.
     * At the top of the TODO list, include a text field labeled Filter.
