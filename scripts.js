@@ -1,17 +1,17 @@
 $(document).ready(function() { 
-
-showOnLoad();
-searchIdeas();
+  showOnLoad();
+  searchIdeas();
+});
 
 var $ideaTitle = $('.idea-title');
 var $ideaBody = $('.idea-body');
 var $saveButton = $('.save-button');
-var $searchIdeas = $('.search-ideas');
+// var $searchIdeas = $('.search-ideas');
 
 $('.idea-title').keyup(enableButton);
 $('.idea-body').keyup(enableButton);
 
-function Idea(title, body, id) {
+function Idea(title, body, idea) {
   this.title = title;
   this.body = body;
   this.id = id;
@@ -56,7 +56,7 @@ function disableButton() {
  $saveButton.attr('disabled', true);
 }
 
-function storeCard() {
+function storeCard(title, body, id) {
   var uniqueId = Date.now();
   var ideaCard = new Idea($ideaTitle.val(), $ideaBody.val(), uniqueId)
   var stringifiedCard = JSON.stringify(ideaCard);
@@ -112,26 +112,17 @@ function assignQuality(idea) {
   return card;
 }
 
+$('.search-ideas').on('change keyup', searchIdeas);
+
 function searchIdeas(){
   var cardsOnDom = Array.from($('.card'));
-  $('.search-ideas').on('change keyup', function(event) {
-     cardsOnDom.forEach(function(card) {
-      if ($searchIdeas.val() === '') {
-        $("p").closest('div').show();
-        $("h2").closest('div').show();
-      } 
-      else {
-        ($("p:contains("+$searchIdeas.val()+")") === $searchIdeas.val() || $("h2:contains("+$searchIdeas.val()+")") === $searchIdeas.val());
-        $("p").closest('div').hide();
-        $("h2").closest('div').hide();
-        $("p:contains("+$searchIdeas.val()+")").closest('div').show();
-        $("h2:contains("+$searchIdeas.val()+")").closest('div').show();
-      }
-    })
+  var $searchIdeas = $('.search-ideas');
+  $('.card').hide();
+  cardsOnDom.forEach(function(card) {
+    $("p:contains("+$searchIdeas.val()+")").closest('div').show();
+    $("h2:contains("+$searchIdeas.val()+")").closest('div').show();
   })
-}
-
-});
+};
 
 $('.idea-display').on('click', '.delete', function() {
   var parentDiv = this.closest('div');
@@ -154,12 +145,10 @@ $('.idea-display').on('click', '.upvote', function() {
     parsedIdea.quality = 3;
     store();
     return;
-  }
-  else if (parsedIdea.quality === 2) {
+  } else if (parsedIdea.quality === 2) {
     $('.'+parentDiv+'').text("Quality: Plausible");
     store();
-  }
-  else if (parsedIdea.quality === 3){
+  } else if (parsedIdea.quality === 3){
     $('.'+parentDiv+'').text("Quality: Genius");
     store();
   } 
