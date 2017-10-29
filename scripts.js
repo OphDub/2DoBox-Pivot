@@ -2,14 +2,15 @@ $(document).ready(function() {
 
 showOnLoad();
 searchIdeas();
+});
 
 var $ideaTitle = $('.idea-title');
 var $ideaBody = $('.idea-body');
 var $saveButton = $('.save-button');
-var $searchIdeas = $('.search-ideas');
 
 $('.idea-title').keyup(enableButton);
 $('.idea-body').keyup(enableButton);
+$('.search-ideas').keyup(searchIdeas);
 
 function Idea(title, body, id) {
   this.title = title;
@@ -114,24 +115,15 @@ function assignQuality(idea) {
 
 function searchIdeas(){
   var cardsOnDom = Array.from($('.card'));
-  $('.search-ideas').on('change keyup', function(event) {
-     cardsOnDom.forEach(function(card) {
-      if ($searchIdeas.val() === '') {
-        $("p").closest('div').show();
-        $("h2").closest('div').show();
-      } 
-      else {
-        ($("p:contains("+$searchIdeas.val()+")") === $searchIdeas.val() || $("h2:contains("+$searchIdeas.val()+")") === $searchIdeas.val());
-        $("p").closest('div').hide();
-        $("h2").closest('div').hide();
-        $("p:contains("+$searchIdeas.val()+")").closest('div').show();
-        $("h2:contains("+$searchIdeas.val()+")").closest('div').show();
-      }
-    })
-  })
-}
+  var $searchIdeas = $('.search-ideas');
 
-});
+  $(".card").hide();
+
+  cardsOnDom.forEach(function(card) {
+    $("p:contains("+$searchIdeas.val()+")").closest('div').show();
+    $("h2:contains("+$searchIdeas.val()+")").closest('div').show();
+  });
+}
 
 $('.idea-display').on('click', '.delete', function() {
   var parentDiv = this.closest('div');
