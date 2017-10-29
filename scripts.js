@@ -10,6 +10,7 @@ var $saveButton = $('.save-button');
 
 $('.idea-title').keyup(enableButton);
 $('.idea-body').keyup(enableButton);
+$('.search-ideas').on('change keyup', searchIdeas);
 
 function Idea(title, body, idea) {
   this.title = title;
@@ -112,8 +113,6 @@ function assignQuality(idea) {
   return card;
 }
 
-$('.search-ideas').on('change keyup', searchIdeas);
-
 function searchIdeas(){
   var cardsOnDom = Array.from($('.card'));
   var $searchIdeas = $('.search-ideas');
@@ -131,26 +130,26 @@ $('.idea-display').on('click', '.delete', function() {
   this.closest('div').remove();
 });
 
+function storeQuality(key, idea) {
+  localStorage.setItem(key, JSON.stringify(idea))
+};
+
 $('.idea-display').on('click', '.upvote', function() {
-  var parentDiv = this.closest('div');
-  parentDiv = parentDiv.id;
+  var parentDiv = this.closest('div').id;
   var parsedIdea = JSON.parse(localStorage.getItem(parentDiv));
-    function store() {
-      var stringifiedIdea = JSON.stringify(parsedIdea)
-      localStorage.setItem(parentDiv, stringifiedIdea)
-    }
   parsedIdea.quality++;
-  store();
+  storeQuality(parentDiv, parsedIdea);
+
   if (parsedIdea.quality > 3) {
     parsedIdea.quality = 3;
-    store();
+    storeQuality(parentDiv, parsedIdea);
     return;
   } else if (parsedIdea.quality === 2) {
     $('.'+parentDiv+'').text("Quality: Plausible");
-    store();
+    storeQuality(parentDiv, parsedIdea);
   } else if (parsedIdea.quality === 3){
     $('.'+parentDiv+'').text("Quality: Genius");
-    store();
+    storeQuality(parentDiv, parsedIdea);
   } 
 });
 
