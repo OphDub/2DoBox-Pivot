@@ -15,7 +15,7 @@ $('.idea-display').on('blur', 'h2', function(){
 });
 $('.idea-display').on('blur', 'p', function(){
   editBody(this);
-}
+});
 
 
 function Idea(title, body, id) {
@@ -76,14 +76,14 @@ function showStorage () {
     var retrieved = localStorage.getItem(localStorage.key(i));
     var parsed = JSON.parse(retrieved);
     ideaArray.push(parsed)
-    var card = `<div id=${ideaArray[i].id} class="card">
+    var card = `<article id=${ideaArray[i].id} class="card">
                   <h2 contenteditable="true">${ideaArray[i].title}</h2>
                   <span class="svg delete" title="delete-button" alt="delete idea"></span>
                   <p contenteditable="true">${ideaArray[i].body}</p>
                   <span class="svg upvote" alt="up vote"></span>
                   <span class="svg downvote" alt="down vote"></span>
                   <span id="quality" class=${ideaArray[i].id}>Quality: Swill</span>
-                </div>`   
+                </article>`   
   }
   $('.idea-display').append(card);
 }
@@ -108,14 +108,14 @@ function assignQuality(idea) {
   } else if (idea.quality == 3) {
     qualityWord = 'Quality: Genius'
   }
- var card = `<div id=${idea.id} class="card">
+ var card = `<article id=${idea.id} class="card">
                 <h2 contenteditable="true">${idea.title}</h2>
                 <span class="svg delete" title="delete-button" alt="delete idea"></span>
                 <p contenteditable="true">${idea.body}</p>
                 <span class="svg upvote" alt="up vote"></span>
                 <span class="svg downvote" alt="down vote"></span>
                 <span id="quality" class=${idea.id}>${qualityWord}</span>
-              </div>`
+              </article>`
   return card;
 }
 
@@ -124,16 +124,15 @@ function searchIdeas(){
   var $searchIdeas = $('.search-ideas');
   $('.card').hide();
   cardsOnDom.forEach(function(card) {
-    $("p:contains("+$searchIdeas.val()+")").closest('div').show();
-    $("h2:contains("+$searchIdeas.val()+")").closest('div').show();
+    $("p:contains("+$searchIdeas.val()+")").closest('article').show();
+    $("h2:contains("+$searchIdeas.val()+")").closest('article').show();
   })
 };
 
 $('.idea-display').on('click', '.delete', function() {
-  var parentDiv = this.closest('div');
-  parentDiv = parentDiv.id;
-  localStorage.removeItem(parentDiv);
-  this.closest('div').remove();
+  var parentArticle = this.closest('article').id;
+  localStorage.removeItem(parentArticle);
+  this.closest('article').remove();
 });
 
 function storeQuality(key, idea) {
@@ -141,53 +140,53 @@ function storeQuality(key, idea) {
 };
 
 $('.idea-display').on('click', '.upvote', function() {
-  var parentDiv = this.closest('div').id;
-  var parsedIdea = JSON.parse(localStorage.getItem(parentDiv));
+  var parentArticle = this.closest('article').id;
+  var parsedIdea = JSON.parse(localStorage.getItem(parentArticle));
   parsedIdea.quality++;
   if (parsedIdea.quality > 3) {
     parsedIdea.quality = 3;
-    storeQuality(parentDiv, parsedIdea);
+    storeQuality(parentArticle, parsedIdea);
     return;
   } else if (parsedIdea.quality === 2) {
-    $('.'+parentDiv+'').text("Quality: Plausible");
+    $('.'+parentArticle+'').text("Quality: Plausible");
   } else if (parsedIdea.quality === 3){
-    $('.'+parentDiv+'').text("Quality: Genius");
+    $('.'+parentArticle+'').text("Quality: Genius");
   } 
-  storeQuality(parentDiv, parsedIdea);
+  storeQuality(parentArticle, parsedIdea);
 });
 
 $('.idea-display').on('click', '.downvote', function() {
-  var parentDiv = this.closest('div').id;
-  var parsedIdea = JSON.parse(localStorage.getItem(parentDiv));
+  var parentArticle = this.closest('article').id;
+  var parsedIdea = JSON.parse(localStorage.getItem(parentArticle));
   parsedIdea.quality--;
   if (parsedIdea.quality <= 1) {
     parsedIdea.quality = 1;
-    $('.'+parentDiv+'').text("Quality: Swill");
-    storeQuality(parentDiv, parsedIdea);
+    $('.'+parentArticle+'').text("Quality: Swill");
+    storeQuality(parentArticle, parsedIdea);
     return;
   }   
   else if (parsedIdea.quality === 2) {
-    $('.'+parentDiv+'').text("Quality: Plausible");
+    $('.'+parentArticle+'').text("Quality: Plausible");
   }
   else if (parsedIdea.quality === 3){
-    $('.'+parentDiv+'').text("Quality: Genius");
+    $('.'+parentArticle+'').text("Quality: Genius");
   } 
-  storeQuality(parentDiv, parsedIdea);
+  storeQuality(parentArticle, parsedIdea);
 });
 
 function editTitle(foo) {
-  var parentDiv = foo.closest('div').id;
+  var parentArticle = foo.closest('article').id;
   var newTitle = foo.innerHTML;
-  var parsedIdea = JSON.parse(localStorage.getItem(parentDiv));
+  var parsedIdea = JSON.parse(localStorage.getItem(parentArticle));
   parsedIdea.title = newTitle;
-  localStorage.setItem(parentDiv, JSON.stringify(parsedIdea));
+  localStorage.setItem(parentArticle, JSON.stringify(parsedIdea));
 };
 
 function editBody(foo) {
-  var parentDiv = this.closest('div').id;
+  var parentArticle = this.closest('article').id;
   var newBody = this.innerHTML;
-  var parsedIdea = JSON.parse(localStorage.getItem(parentDiv));
+  var parsedIdea = JSON.parse(localStorage.getItem(parentArticle));
   parsedIdea.body = newBody;
-  localStorage.setItem(parentDiv, JSON.stringify(parsedIdea));
+  localStorage.setItem(parentArticle, JSON.stringify(parsedIdea));
 };
 
