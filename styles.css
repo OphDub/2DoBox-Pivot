@@ -1,9 +1,31 @@
+/* Global Styling */
 body {
-font-family: open-sans;
-font-size: 20px;
-margin: auto;
-text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  margin: auto;
+  text-align: center;
 }
+
+::-webkit-input-placeholder {
+  color: #D1D3D4;
+}
+
+form {
+  display: inline-block;
+  margin: auto;
+  text-align: left;
+  width: 100%;
+}
+
+input {
+  box-sizing: border-box;
+}
+
+.idea-title:focus, .idea-body:focus, h2:focus, p:focus {
+  outline: none;
+}
+
+/* Header Styling */
 
 .user-input {
   background: #E5F3F2;
@@ -19,7 +41,7 @@ header {
 h1 {
   color: #6D6E71;
   font-size: 2em;
-  font-family: Roboto Slab;
+  font-family: 'Roboto Slab', serif;
   padding-top: 0px;
   padding-bottom: 10px;
 }
@@ -33,17 +55,6 @@ h1 {
   text-align: center;
 }
 
-form {
-  display: inline-block;
-  margin: auto;
-  text-align: left;
-  width: 100%;
-}
-
-input {
-  box-sizing: border-box;
-}
-
 .idea-title {
   display: block;
   outline-style: none;
@@ -51,14 +62,6 @@ input {
   padding: 2px;
   margin: 10px auto;
   width: 85vh;
-}
-
-.idea-title:focus, .idea-body:focus, h2:focus, p:focus {
-  outline: none;
-}
-
-.idea-title::-webkit-input-placeholder {
-  color: #D1D2D4;
 }
 
 .idea-body {
@@ -75,18 +78,16 @@ input {
   resize: none;
 }
 
-.idea-body::-webkit-input-placeholder {
-  color: #D1D3D4;
-}
-
 .save-button{
   background:#00A79D;
+  border: 0;
   color: white;
   display: block;
+  font-size: 16px;
+  height: 25px;
   margin: 10px auto;
   margin-bottom: 15px;
   outline-style: none;
-  padding: 2px;
   transition: background 1s;
   width: 85vh;
 }
@@ -120,7 +121,7 @@ input {
 .card h2 {
   color: #6D6E71;
   display: inline;
-  font-family: Open-Sans;
+  font-family: 'Open Sans', sans-serif;
   font-size: .8em;
 }
 

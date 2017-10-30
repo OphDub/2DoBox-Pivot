@@ -1,6 +1,8 @@
 $(document).ready(function() { 
-  showOnLoad();
-  searchIdeas();
+
+showOnLoad();
+searchIdeas();
+
 });
 
 var $ideaTitle = $('.idea-title');
