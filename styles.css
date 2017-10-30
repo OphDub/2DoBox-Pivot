@@ -81,12 +81,14 @@ input {
 
 .save-button{
   background:#00A79D;
+  border: 0;
   color: white;
   display: block;
+  font-size: 16px;
+  height: 25px;
   margin: 10px auto;
   margin-bottom: 15px;
   outline-style: none;
-  padding: 2px;
   transition: background 1s;
   width: 85vh;
 }
