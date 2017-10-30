@@ -6,13 +6,19 @@ $(document).ready(function() {
 var $ideaTitle = $('.idea-title');
 var $ideaBody = $('.idea-body');
 var $saveButton = $('.save-button');
-// var $searchIdeas = $('.search-ideas');
 
 $('.idea-title').keyup(enableButton);
 $('.idea-body').keyup(enableButton);
-$('.search-ideas').on('change keyup', searchIdeas);
+$('.search-ideas').keyup(searchIdeas);
+$('.idea-display').on('blur', 'h2', function(){
+  editTitle(this);
+});
+$('.idea-display').on('blur', 'p', function(){
+  editBody(this);
+}
 
-function Idea(title, body, idea) {
+
+function Idea(title, body, id) {
   this.title = title;
   this.body = body;
   this.id = id;
@@ -138,99 +144,50 @@ $('.idea-display').on('click', '.upvote', function() {
   var parentDiv = this.closest('div').id;
   var parsedIdea = JSON.parse(localStorage.getItem(parentDiv));
   parsedIdea.quality++;
-  storeQuality(parentDiv, parsedIdea);
-
   if (parsedIdea.quality > 3) {
     parsedIdea.quality = 3;
     storeQuality(parentDiv, parsedIdea);
     return;
   } else if (parsedIdea.quality === 2) {
     $('.'+parentDiv+'').text("Quality: Plausible");
-    storeQuality(parentDiv, parsedIdea);
   } else if (parsedIdea.quality === 3){
     $('.'+parentDiv+'').text("Quality: Genius");
-    storeQuality(parentDiv, parsedIdea);
   } 
+  storeQuality(parentDiv, parsedIdea);
 });
 
 $('.idea-display').on('click', '.downvote', function() {
-  var parentDiv = this.closest('div');
-  parentDiv = parentDiv.id;
+  var parentDiv = this.closest('div').id;
   var parsedIdea = JSON.parse(localStorage.getItem(parentDiv));
-  function store() {
-    var stringifiedIdea = JSON.stringify(parsedIdea)
-    localStorage.setItem(parentDiv, stringifiedIdea)
-  } 
   parsedIdea.quality--;
-  store();
   if (parsedIdea.quality <= 1) {
     parsedIdea.quality = 1;
     $('.'+parentDiv+'').text("Quality: Swill");
-    store();
+    storeQuality(parentDiv, parsedIdea);
     return;
   }   
   else if (parsedIdea.quality === 2) {
     $('.'+parentDiv+'').text("Quality: Plausible");
-    store()
   }
   else if (parsedIdea.quality === 3){
     $('.'+parentDiv+'').text("Quality: Genius");
-    store()
   } 
+  storeQuality(parentDiv, parsedIdea);
 });
 
-$('.idea-display').on('focus', 'h2', function() {
-  $(this).on('keypress', function(e) {
-    var key = e.which || e.keyCode;
-        var key = e.which || e.keyCode;
-    if (key === 13 && e.shiftKey) {
-    }
-    else if (key === 13 || this.blur === true) {
-      e.preventDefault();
-      var parentDiv = this.closest('div');
-      parentDiv = parentDiv.id;
-      var newTitle = this.innerHTML;
-      var parsedIdea = JSON.parse(localStorage.getItem(parentDiv));
-      parsedIdea.title = newTitle;
-      var stringifiedIdea = JSON.stringify(parsedIdea)
-      localStorage.setItem(parentDiv, stringifiedIdea)
-    }
-  })
-  $(this).on('blur', function(event) {
-      var parentDiv = this.closest('div');
-      parentDiv = parentDiv.id;
-      var newTitle = this.innerHTML;
-      var parsedIdea = JSON.parse(localStorage.getItem(parentDiv));
-      parsedIdea.title = newTitle;
-      var stringifiedIdea = JSON.stringify(parsedIdea)
-      localStorage.setItem(parentDiv, stringifiedIdea)
-  })
-})
+function editTitle(foo) {
+  var parentDiv = foo.closest('div').id;
+  var newTitle = foo.innerHTML;
+  var parsedIdea = JSON.parse(localStorage.getItem(parentDiv));
+  parsedIdea.title = newTitle;
+  localStorage.setItem(parentDiv, JSON.stringify(parsedIdea));
+};
 
-$('.idea-display').on('focus', 'p', function() {
-  $(this).on('keypress', function(e) {
-    var key = e.which || e.keyCode;
-    if (key === 13 && e.shiftKey) {
-    }
-    else if(key === 13) {
-      e.preventDefault();
-      var parentDiv = this.closest('div');
-      parentDiv = parentDiv.id;
-      var newBody = this.innerHTML;
-      var parsedIdea = JSON.parse(localStorage.getItem(parentDiv));
-      parsedIdea.body = newBody;
-      var stringifiedIdea = JSON.stringify(parsedIdea)
-      localStorage.setItem(parentDiv, stringifiedIdea)
-    }
-  })
-  $(this).on('blur', function(event) {
-      var parentDiv = this.closest('div');
-      parentDiv = parentDiv.id;
-      var newBody = this.innerHTML;
-      var parsedIdea = JSON.parse(localStorage.getItem(parentDiv));
-      parsedIdea.body = newBody;
-      var stringifiedIdea = JSON.stringify(parsedIdea)
-      localStorage.setItem(parentDiv, stringifiedIdea)
-  })
-})
+function editBody(foo) {
+  var parentDiv = this.closest('div').id;
+  var newBody = this.innerHTML;
+  var parsedIdea = JSON.parse(localStorage.getItem(parentDiv));
+  parsedIdea.body = newBody;
+  localStorage.setItem(parentDiv, JSON.stringify(parsedIdea));
+};
 
