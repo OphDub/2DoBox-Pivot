@@ -21,7 +21,7 @@ input {
   box-sizing: border-box;
 }
 
-.idea-title:focus, .idea-body:focus, h2:focus, p:focus {
+.task-title:focus, .task-body:focus, h2:focus, p:focus {
   outline: none;
 }
 
@@ -46,7 +46,7 @@ h1 {
   padding-bottom: 10px;
 }
 
-.idea {
+.task {
   color: #00A79D;
 }
 
@@ -55,7 +55,7 @@ h1 {
   text-align: center;
 }
 
-.idea-title {
+.task-title {
   display: block;
   outline-style: none;
   border: 1px solid #CCCCCC;
@@ -64,7 +64,7 @@ h1 {
   width: 85vh;
 }
 
-.idea-body {
+.task-body {
   border-color: #CCCCCC;
   box-sizing: border-box;
   display: block;
@@ -100,11 +100,11 @@ h1 {
   background:#045E55;
 }
 
-.idea-display{
+.task-display{
   width: 100%;
 }
 
-.search-ideas {
+.search-tasks {
   margin: 15px 0px;
   outline-style: none;
   width: 85vh;
@@ -180,19 +180,19 @@ h1 {
     margin: 0 auto;
   }
 
-  .idea-title {
+  .task-title {
     font-size: 20px;
     width: 85%;
   }
 
-  .idea-body {
+  .task-body {
     width: 85%;
     max-height: none;
     min-height: 30px;
     font-size: 20px;
   }
 
-  .idea-display {
+  .task-display {
     width: 100%;
   }
 
@@ -200,7 +200,7 @@ h1 {
     width: 85%;
   }
   
-  .search-ideas {
+  .search-tasks {
     width: 85%;
     border: 1px solid #CCCCCC;  
   }
@@ -215,22 +215,22 @@ h1 {
     margin: 0 auto;
   }
 
-  .idea-title {
+  .task-title {
     font-size: 20px;
   }
 
-  .idea-body {
+  .task-body {
     max-height: none;
     min-height: 105px;
     height: 15vh;
     font-size: 20px;
   }
 
-  .idea-display {
+  .task-display {
     width: 100%;
   }
   
-  .search-ideas {
+  .search-tasks {
     width: 85%;
     border: 1px solid #CCCCCC;  
   }

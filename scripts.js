@@ -1,26 +1,26 @@
 $(document).ready(function() { 
 
 showOnLoad();
-searchIdeas();
+searchTasks();
 
 });
 
-var $ideaTitle = $('.idea-title');
-var $ideaBody = $('.idea-body');
-var $saveButton = $('.save-button');
+var $taskTitle = $('.task-title');
+var $taskBody = $('.task-body');
+var $saveButton = $('.task-button');
 
-$('.idea-title').keyup(enableButton);
-$('.idea-body').keyup(enableButton);
-$('.search-ideas').keyup(searchIdeas);
-$('.idea-display').on('blur', 'h2', function(){
+$('.task-title').keyup(enableButton);
+$('.task-body').keyup(enableButton);
+$('.search-tasks').keyup(searchTasks);
+$('.task-display').on('blur', 'h2', function(){
   editTitle(this);
 });
-$('.idea-display').on('blur', 'p', function(){
+$('.task-display').on('blur', 'p', function(){
   editBody(this);
 });
 
 
-function Idea(title, body, id) {
+function Task(title, body, id) {
   this.title = title;
   this.body = body;
   this.id = id;
@@ -33,27 +33,27 @@ $saveButton.on('click', function(e) {
   showStorage();
   clearInputs();
   disableButton();
-  $ideaTitle.focus();
+  $taskTitle.focus();
 })
 
-$ideaBody.on('keydown', function(e) {
+$taskBody.on('keydown', function(e) {
   if (e.keyCode == 13 && !e.shiftKey){
     e.preventDefault();
     storeCard();
     showStorage();
     clearInputs();
     disableButton();
-    $ideaTitle.focus();
+    $taskTitle.focus();
   }
 });
 
 function clearInputs() {
-  $ideaTitle.val('');
-  $ideaBody.val('');
+  $taskTitle.val('');
+  $taskBody.val('');
 };
 
 function enableButton() {
-  if ($('.idea-title').val() === "" || $('.idea-body').val() === "") {
+  if ($('.task-title').val() === "" || $('.task-body').val() === "") {
     $('.save-button').attr('disabled', true);
   }
   else {
@@ -67,128 +67,128 @@ function disableButton() {
 
 function storeCard(title, body, id) {
   var uniqueId = Date.now();
-  var ideaCard = new Idea($ideaTitle.val(), $ideaBody.val(), uniqueId)
-  var stringifiedCard = JSON.stringify(ideaCard);
+  var taskCard = new Task($taskTitle.val(), $taskBody.val(), uniqueId)
+  var stringifiedCard = JSON.stringify(taskCard);
   localStorage.setItem(uniqueId, stringifiedCard);
 }
 
 function showStorage () {
-  var ideaArray = [];
+  var taskArray = [];
   for (var i = 0; i < localStorage.length; i++) {
     var retrieved = localStorage.getItem(localStorage.key(i));
     var parsed = JSON.parse(retrieved);
-    ideaArray.push(parsed)
-    var card = `<article id=${ideaArray[i].id} class="card">
-                  <h2 contenteditable="true">${ideaArray[i].title}</h2>
-                  <span class="svg delete" title="delete-button" alt="delete idea"></span>
-                  <p contenteditable="true">${ideaArray[i].body}</p>
+    taskArray.push(parsed)
+    var card = `<article id=${taskArray[i].id} class="card">
+                  <h2 contenteditable="true">${taskArray[i].title}</h2>
+                  <span class="svg delete" title="delete-button" alt="delete task"></span>
+                  <p contenteditable="true">${taskArray[i].body}</p>
                   <span class="svg upvote" alt="up vote"></span>
                   <span class="svg downvote" alt="down vote"></span>
-                  <span id="quality" class=${ideaArray[i].id}>Quality: Swill</span>
+                  <span id="quality" class=${taskArray[i].id}>Quality: Swill</span>
                 </article>`   
   }
-  $('.idea-display').append(card);
+  $('.task-display').append(card);
 }
 
 function showOnLoad() {
-  var ideaArray = [];
+  var taskArray = [];
   for (var i = 0; i < localStorage.length; i++) {
     var retrieved = localStorage.getItem(localStorage.key(i));
     var parsed = JSON.parse(retrieved);
-    ideaArray.push(parsed)
-    assignQuality(ideaArray[i]);
-    $('.idea-display').append(assignQuality(ideaArray[i]));
+    taskArray.push(parsed)
+    assignQuality(taskArray[i]);
+    $('.task-display').append(assignQuality(taskArray[i]));
   }
 }
 
-function assignQuality(idea) {
+function assignQuality(task) {
   var qualityWord = '';
-  if (idea.quality == 1) {
+  if (task.quality == 1) {
     qualityWord = 'Quality: Swill'
-  } else if (idea.quality == 2) {
+  } else if (task.quality == 2) {
     qualityWord = 'Quality: Plausible'
-  } else if (idea.quality == 3) {
+  } else if (task.quality == 3) {
     qualityWord = 'Quality: Genius'
   }
- var card = `<article id=${idea.id} class="card">
-                <h2 contenteditable="true">${idea.title}</h2>
-                <span class="svg delete" title="delete-button" alt="delete idea"></span>
-                <p contenteditable="true">${idea.body}</p>
+ var card = `<article id=${task.id} class="card">
+                <h2 contenteditable="true">${task.title}</h2>
+                <span class="svg delete" title="delete-button" alt="delete task"></span>
+                <p contenteditable="true">${task.body}</p>
                 <span class="svg upvote" alt="up vote"></span>
                 <span class="svg downvote" alt="down vote"></span>
-                <span id="quality" class=${idea.id}>${qualityWord}</span>
+                <span id="quality" class=${task.id}>${qualityWord}</span>
               </article>`
   return card;
 }
 
-function searchIdeas(){
+function searchTasks(){
   var cardsOnDom = Array.from($('.card'));
-  var $searchIdeas = $('.search-ideas');
+  var $searchTasks = $('.search-tasks');
   $('.card').hide();
   cardsOnDom.forEach(function(card) {
-    $("p:contains("+$searchIdeas.val()+")").closest('article').show();
-    $("h2:contains("+$searchIdeas.val()+")").closest('article').show();
+    $("p:contains("+$searchTasks.val()+")").closest('article').show();
+    $("h2:contains("+$searchTasks.val()+")").closest('article').show();
   })
 };
 
-$('.idea-display').on('click', '.delete', function() {
+$('.task-display').on('click', '.delete', function() {
   var parentArticle = this.closest('article').id;
   localStorage.removeItem(parentArticle);
   this.closest('article').remove();
 });
 
-function storeQuality(key, idea) {
-  localStorage.setItem(key, JSON.stringify(idea))
+function storeQuality(key, task) {
+  localStorage.setItem(key, JSON.stringify(task))
 };
 
-$('.idea-display').on('click', '.upvote', function() {
+$('.task-display').on('click', '.upvote', function() {
   var parentArticle = this.closest('article').id;
-  var parsedIdea = JSON.parse(localStorage.getItem(parentArticle));
-  parsedIdea.quality++;
-  if (parsedIdea.quality > 3) {
-    parsedIdea.quality = 3;
-    storeQuality(parentArticle, parsedIdea);
+  var parsedTask = JSON.parse(localStorage.getItem(parentArticle));
+  parsedTask.quality++;
+  if (parsedTask.quality > 3) {
+    parsedTask.quality = 3;
+    storeQuality(parentArticle, parsedTask);
     return;
-  } else if (parsedIdea.quality === 2) {
+  } else if (parsedTask.quality === 2) {
     $('.'+parentArticle+'').text("Quality: Plausible");
-  } else if (parsedIdea.quality === 3){
+  } else if (parsedTask.quality === 3){
     $('.'+parentArticle+'').text("Quality: Genius");
   } 
-  storeQuality(parentArticle, parsedIdea);
+  storeQuality(parentArticle, parsedTask);
 });
 
-$('.idea-display').on('click', '.downvote', function() {
+$('.task-display').on('click', '.downvote', function() {
   var parentArticle = this.closest('article').id;
-  var parsedIdea = JSON.parse(localStorage.getItem(parentArticle));
-  parsedIdea.quality--;
-  if (parsedIdea.quality <= 1) {
-    parsedIdea.quality = 1;
+  var parsedTask = JSON.parse(localStorage.getItem(parentArticle));
+  parsedTask.quality--;
+  if (parsedTask.quality <= 1) {
+    parsedTask.quality = 1;
     $('.'+parentArticle+'').text("Quality: Swill");
-    storeQuality(parentArticle, parsedIdea);
+    storeQuality(parentArticle, parsedTask);
     return;
   }   
-  else if (parsedIdea.quality === 2) {
+  else if (parsedTask.quality === 2) {
     $('.'+parentArticle+'').text("Quality: Plausible");
   }
-  else if (parsedIdea.quality === 3){
+  else if (parsedTask.quality === 3){
     $('.'+parentArticle+'').text("Quality: Genius");
   } 
-  storeQuality(parentArticle, parsedIdea);
+  storeQuality(parentArticle, parsedTask);
 });
 
 function editTitle(foo) {
   var parentArticle = foo.closest('article').id;
   var newTitle = foo.innerHTML;
-  var parsedIdea = JSON.parse(localStorage.getItem(parentArticle));
-  parsedIdea.title = newTitle;
-  localStorage.setItem(parentArticle, JSON.stringify(parsedIdea));
+  var parsedTask = JSON.parse(localStorage.getItem(parentArticle));
+  parsedTask.title = newTitle;
+  localStorage.setItem(parentArticle, JSON.stringify(parsedTask));
 };
 
 function editBody(foo) {
   var parentArticle = this.closest('article').id;
   var newBody = this.innerHTML;
-  var parsedIdea = JSON.parse(localStorage.getItem(parentArticle));
-  parsedIdea.body = newBody;
-  localStorage.setItem(parentArticle, JSON.stringify(parsedIdea));
+  var parsedTask = JSON.parse(localStorage.getItem(parentArticle));
+  parsedTask.body = newBody;
+  localStorage.setItem(parentArticle, JSON.stringify(parsedTask));
 };
 
