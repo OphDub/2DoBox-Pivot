@@ -144,7 +144,9 @@ h1 {
   max-height: 50px;
   max-width: 50px;
   }
-
+button {
+  border: none;
+}
 .svg.upvote {
   background: url("images/upvote.svg");
   display: inline-block;

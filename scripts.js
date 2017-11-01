@@ -104,19 +104,19 @@ function showOnLoad() {
 function assignQuality(task) {
   var qualityWord = '';
   if (task.quality == 1) {
-    qualityWord = 'Quality: Swill'
+    qualityWord = 'Swill'
   } else if (task.quality == 2) {
-    qualityWord = 'Quality: Plausible'
+    qualityWord = 'Plausible'
   } else if (task.quality == 3) {
-    qualityWord = 'Quality: Genius'
+    qualityWord = 'Genius'
   }
  var card = `<article id=${task.id} class="card interactive-elements">
                 <h2 contenteditable="true">${task.title}</h2>
-                <span class="svg delete" title="delete-button" alt="delete task"></span>
+                <button class="svg delete" title="delete-button" alt="delete task"></button>
                 <p contenteditable="true">${task.body}</p>
-                <span class="svg upvote" alt="up vote"></span>
-                <span class="svg downvote" alt="down vote"></span>
-                <span id="quality" class=${task.id}>${qualityWord}</span>
+                <button class="svg upvote" alt="up vote"></button>
+                <button class="svg downvote" alt="down vote"></button>
+                <button id="quality" class=${task.id}>Quality: ${qualityWord}</button>
               </article>`
   return card;
 }
