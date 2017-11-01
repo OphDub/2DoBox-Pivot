@@ -24,6 +24,9 @@ input {
 .task-title:focus, .task-body:focus, h2:focus, p:focus {
   outline: none;
 }
+.interactive-elements {
+  width: 43%;
+}
 
 /* Header Styling */
 
@@ -61,7 +64,6 @@ h1 {
   border: 1px solid #CCCCCC;
   padding: 2px;
   margin: 10px auto;
-  width: 85vh;
 }
 
 .task-body {
@@ -74,7 +76,6 @@ h1 {
   margin: 10px auto;
   outline-style: none;
   padding: 2px;
-  width: 85vh;
   resize: none;
 }
 
@@ -89,7 +90,6 @@ h1 {
   margin-bottom: 15px;
   outline-style: none;
   transition: background 1s;
-  width: 85vh;
 }
 
 .save-button:disabled {
@@ -107,7 +107,6 @@ h1 {
 .search-tasks {
   margin: 15px 0px;
   outline-style: none;
-  width: 85vh;
 }
 
 .card {
@@ -115,7 +114,6 @@ h1 {
   margin: 0vh auto 5vh auto;
   padding-bottom: 3vh; 
   text-align: left;
-  width: 85vh;
   }
 
 .card h2 {

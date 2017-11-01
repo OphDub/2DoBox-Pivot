@@ -78,7 +78,7 @@ function showStorage () {
     var retrieved = localStorage.getItem(localStorage.key(i));
     var parsed = JSON.parse(retrieved);
     taskArray.push(parsed)
-    var card = `<article id=${taskArray[i].id} class="card">
+    var card = `<article id=${taskArray[i].id} class="card interactive-elements">
                   <h2 contenteditable="true">${taskArray[i].title}</h2>
                   <span class="svg delete" title="delete-button" alt="delete task"></span>
                   <p contenteditable="true">${taskArray[i].body}</p>
@@ -110,7 +110,7 @@ function assignQuality(task) {
   } else if (task.quality == 3) {
     qualityWord = 'Quality: Genius'
   }
- var card = `<article id=${task.id} class="card">
+ var card = `<article id=${task.id} class="card interactive-elements">
                 <h2 contenteditable="true">${task.title}</h2>
                 <span class="svg delete" title="delete-button" alt="delete task"></span>
                 <p contenteditable="true">${task.body}</p>
@@ -144,16 +144,17 @@ function storeQuality(key, task) {
 $('.task-display').on('click', '.upvote', function() {
   var parentArticle = this.closest('article').id;
   var parsedTask = JSON.parse(localStorage.getItem(parentArticle));
-  parsedTask.quality++;
-  if (parsedTask.quality > 3) {
-    parsedTask.quality = 3;
-    storeQuality(parentArticle, parsedTask);
-    return;
-  } else if (parsedTask.quality === 2) {
-    $('.'+parentArticle+'').text("Quality: Plausible");
-  } else if (parsedTask.quality === 3){
-    $('.'+parentArticle+'').text("Quality: Genius");
-  } 
+  var Importance = []
+  // parsedTask.quality++;
+  // if (parsedTask.quality > 3) {
+  //   parsedTask.quality = 3;
+  //   storeQuality(parentArticle, parsedTask);
+  //   return;
+  // } else if (parsedTask.quality === 2) {
+  //   $('.'+parentArticle+'').text("Quality: Plausible");
+  // } else if (parsedTask.quality === 3){
+  //   $('.'+parentArticle+'').text("Quality: Genius");
+  // } 
   storeQuality(parentArticle, parsedTask);
 });
 
@@ -176,17 +177,17 @@ $('.task-display').on('click', '.downvote', function() {
   storeQuality(parentArticle, parsedTask);
 });
 
-function editTitle(foo) {
-  var parentArticle = foo.closest('article').id;
-  var newTitle = foo.innerHTML;
+function editTitle(card) {
+  var parentArticle = card.closest('article').id;
+  var newTitle = card.innerHTML;
   var parsedTask = JSON.parse(localStorage.getItem(parentArticle));
   parsedTask.title = newTitle;
   localStorage.setItem(parentArticle, JSON.stringify(parsedTask));
 };
 
-function editBody(foo) {
-  var parentArticle = this.closest('article').id;
-  var newBody = this.innerHTML;
+function editBody(card) {
+  var parentArticle = card.closest('article').id;
+  var newBody = card.innerHTML;
   var parsedTask = JSON.parse(localStorage.getItem(parentArticle));
   parsedTask.body = newBody;
   localStorage.setItem(parentArticle, JSON.stringify(parsedTask));
