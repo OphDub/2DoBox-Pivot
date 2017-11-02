@@ -15,13 +15,7 @@ $('.task-display').on('blur', 'p', function(){
   editBody(this);
 });
 $('.task-display').on('click', '.completed-btn', markAsComplete);
-
-function Task(title, body, id) {
-  this.title = title;
-  this.body = body;
-  this.id = id;
-  this.quality = 1;
-}
+$('.task-display').on('click', '.completed-btn', completedVisual);
 
 $('.save-button').on('click', function(e) {
   e.preventDefault();
@@ -48,6 +42,7 @@ function Task(title, body, id) {
   this.id = id;
   this.quality = 2;
   this.qualityArray = ['None','Low','Normal','High','Critical'];
+  this.complete = false
 };
 
 function clearInputs() {
@@ -71,12 +66,26 @@ function disableButton() {
 function markAsComplete() {
   var currentCardId = this.closest('article').id;
   var pants = JSON.parse(localStorage.getItem(currentCardId));
-  var parentArticle = $(this).closest('article');
 
-  pants.toggleClass('completed-task-card');
-  localStorage.setItem(currentCardId, JSON.stringify(pants))
+  if(pants.complete == false) {
+    pants.complete = true;
+
+  }
+  else if (pants.complete == true) {
+    pants.complete = false;
+  }
+  localStorage.setItem(currentCardId, JSON.stringify(pants));
 }
 
+function completedVisual() {
+  var currentCard = this.closest('article').id;
+  var pants = JSON.parse(localStorage.getItem(currentCard));
+
+  console.log(pants.complete);
+  if (pants.complete = true) {
+    $(this).closest('article').toggleClass('completed-task-card');
+  }
+};
 function storeCard() {
   var id = Date.now();
   var taskCard = new Task($('.task-title').val(), $('.task-body').val(), id)
@@ -101,6 +110,7 @@ function showOnLoad() {
  for (var i = 0; i < localStorage.length; i++) {
   var task = JSON.parse(localStorage.getItem(localStorage.key(i)));
   prependCard(task);
+  // completedVisual();
  } 
 };
 
