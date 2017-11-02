@@ -147,12 +147,13 @@ h1 {
 button {
   border: none;
 }
+
 .svg.upvote {
   background: url("images/upvote.svg");
   display: inline-block;
 }
 
-.svg.downvote{
+.svg.downvote {
   background: url("images/downvote.svg");
   display: inline-block;
   margin-right: 3vh;

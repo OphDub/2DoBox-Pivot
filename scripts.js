@@ -8,10 +8,10 @@ $('.search-tasks').keyup(searchTasks);
 $('.task-display').on('click', '.upvote', upvote);
 $('.task-display').on('click', '.downvote', downvote);
 $('.task-display').on('click', '.delete', deleteTask);
-$('.task-display').on('blur', 'h2', function(){ 
+$('.task-display').on('blur', 'h2', function() { 
   editTitle(this);
 });
-$('.task-display').on('blur', 'p', function(){
+$('.task-display').on('blur', 'p', function() {
   editBody(this);
 });
 
@@ -86,7 +86,7 @@ function showOnLoad() {
  } 
 };
 
-function searchTasks(){
+function searchTasks() {
   var cardsOnDom = Array.from($('.card'));
   $('.card').hide();
   cardsOnDom.forEach(function(card) {
