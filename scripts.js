@@ -8,19 +8,12 @@ $('.search-tasks').keyup(searchTasks);
 $('.task-display').on('click', '.upvote', upvote);
 $('.task-display').on('click', '.downvote', downvote);
 $('.task-display').on('click', '.delete', deleteTask);
-$('.task-display').on('blur', 'h2', function(){
+$('.task-display').on('blur', 'h2', function(){ 
   editTitle(this);
 });
 $('.task-display').on('blur', 'p', function(){
   editBody(this);
 });
-
-function Task(title, body, id) {
-  this.title = title;
-  this.body = body;
-  this.id = id;
-  this.importance = 1;
-}
 
 $('.save-button').on('click', function(e) {
   e.preventDefault();
@@ -154,4 +147,16 @@ function editBody(card) {
   var parsedTask = JSON.parse(localStorage.getItem(parentArticle));
   parsedTask.body = newBody;
   localStorage.setItem(parentArticle, JSON.stringify(parsedTask));
+};
+
+function importanceFilter() {
+  $('select').change(function() {
+    var pants = $(this);
+    console.log(pants);
+    if(pants.val() === '' ) {
+      $('.card').show();
+    }
+      $('.card').hide();
+      $('.card' + pants.val()).show();
+  })
 };
