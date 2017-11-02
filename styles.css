@@ -79,7 +79,7 @@ h1 {
   resize: none;
 }
 
-.save-button{
+.button-styles {
   background:#00A79D;
   border: 0;
   color: white;
@@ -92,11 +92,11 @@ h1 {
   transition: background 1s;
 }
 
-.save-button:disabled {
+.button-styles :disabled {
   opacity: 0.5;
 }
 
-.save-button:hover{
+.button-styles :hover{
   background:#045E55;
 }
 
@@ -170,7 +170,7 @@ button {
   background: url("images/downvote-hover.svg");
 }
 
-#quality {
+#importance {
   color:#6D6E71;
   font-size: 0.6em;
 }

@@ -17,11 +17,21 @@
         <form>
           <input aria-label="task title input" class="task-title interactive-elements" type="text" name="title" placeholder="Title">
           <textarea aria-label="task body input" class="task-body interactive-elements" type="text-area" name="body" placeholder="Body"></textarea>
-          <button class="save-button interactive-elements" disabled>save</button>
+          <button class="save-button interactive-elements button-styles" disabled>save</button>
         </form>
       </div>
     </header>
     <input aria-label="search tasks input" class="search-tasks interactive-elements" type="text" name="searchtasks" placeholder="Filter">
+    <section>
+      <select class="importance-selector button-styles" name="importance" id="">
+        <option value="">show all</option>
+        <option value="">none</option>
+        <option value="">low</option>
+        <option value="">normal</option>
+        <option value="">high</option>
+        <option value="">critical</option>
+      </select>
+    </section>
     <section class="task-display">
     </section>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

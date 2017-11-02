@@ -8,19 +8,12 @@ $('.search-tasks').keyup(searchTasks);
 $('.task-display').on('click', '.upvote', upvote);
 $('.task-display').on('click', '.downvote', downvote);
 $('.task-display').on('click', '.delete', deleteTask);
-$('.task-display').on('blur', 'h2', function(){
+$('.task-display').on('blur', 'h2', function(){ 
   editTitle(this);
 });
 $('.task-display').on('blur', 'p', function(){
   editBody(this);
 });
-
-function Task(title, body, id) {
-  this.title = title;
-  this.body = body;
-  this.id = id;
-  this.quality = 1;
-}
 
 $('.save-button').on('click', function(e) {
   e.preventDefault();
@@ -45,8 +38,8 @@ function Task(title, body, id) {
   this.title = title;
   this.body = body;
   this.id = id;
-  this.quality = 2;
-  this.qualityArray = ['None','Low','Normal','High','Critical'];
+  this.importance = 2;
+  this.importanceArray = ['None','Low','Normal','High','Critical'];
 };
 
 function clearInputs() {
@@ -81,7 +74,7 @@ function prependCard(obj) {
                 <p contenteditable="true">${obj['body']}</p>
                 <button class="svg upvote" alt="up vote"></button>
                 <button class="svg downvote" alt="down vote"></button>
-                <span id="quality" class=${obj['id']}>Quality: ${obj.qualityArray[obj.quality]}</span>
+                <span id="importance" class=${obj['id']}>Importance: ${obj.importanceArray[obj.importance]}</span>
               </article>`
   $('.task-display').prepend(card);
 };
@@ -108,36 +101,36 @@ function deleteTask() {
   this.closest('article').remove();
 };
 
-function storeQuality(key, task) {
+function storeImportance(key, task) {
   localStorage.setItem(key, JSON.stringify(task))
 };
 
 function upvote() {
   var parentArticle = this.closest('article').id;
   var parsedTask = JSON.parse(localStorage.getItem(parentArticle));
-  if (parsedTask.quality < 5) {
-    parsedTask.quality++;
+  if (parsedTask.importance < 5) {
+    parsedTask.importance++;
   }
-  for (var i = 0; i < parsedTask.qualityArray.length; i++) {
-    if (parsedTask.quality === i) {
-      $('.'+parentArticle+'').text('Quality: ' + parsedTask.qualityArray[i]);
+  for (var i = 0; i < parsedTask.importanceArray.length; i++) {
+    if (parsedTask.importance === i) {
+      $('.'+parentArticle+'').text('Importance: ' + parsedTask.importanceArray[i]);
     }
   }
-  storeQuality(parentArticle, parsedTask);
+  storeImportance(parentArticle, parsedTask);
 };
 
 function downvote() {
   var parentArticle = this.closest('article').id;
   var parsedTask = JSON.parse(localStorage.getItem(parentArticle));
-  if(parsedTask.quality > 0) {
-    parsedTask.quality--;
+  if(parsedTask.importance > 0) {
+    parsedTask.importance--;
   }
-  for (var i = 0; i < parsedTask.qualityArray.length; i++) {
-    if (parsedTask.quality === i) {
-      $('.'+parentArticle+'').text('Quality: ' + parsedTask.qualityArray[i]);
+  for (var i = 0; i < parsedTask.importanceArray.length; i++) {
+    if (parsedTask.importance === i) {
+      $('.'+parentArticle+'').text('Importance: ' + parsedTask.importanceArray[i]);
     }
   }
-  storeQuality(parentArticle, parsedTask);
+  storeImportance(parentArticle, parsedTask);
 };
 
 function editTitle(card) {
@@ -154,4 +147,16 @@ function editBody(card) {
   var parsedTask = JSON.parse(localStorage.getItem(parentArticle));
   parsedTask.body = newBody;
   localStorage.setItem(parentArticle, JSON.stringify(parsedTask));
+};
+
+function importanceFilter() {
+  $('select').change(function() {
+    var pants = $(this);
+    console.log(pants);
+    if(pants.val() === '' ) {
+      $('.card').show();
+    }
+      $('.card').hide();
+      $('.card' + pants.val()).show();
+  })
 };
