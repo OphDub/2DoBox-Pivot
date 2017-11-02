@@ -1,11 +1,6 @@
 $(document).ready(function() { 
   showOnLoad();
-  // searchIdeas();
 });
-
-// var $ideaTitle = $('.idea-title');
-// var $ideaBody = $('.idea-body');
-// var $saveButton = $('.save-button');
 
 //Event Listeners
 $('.idea-title').keyup(enableButton);
@@ -50,13 +45,6 @@ function Idea(title, body, id) {
   this.qualityArray = ['Swill', 'Plausible', 'Genius'];
 };
 
-Idea.prototype.changeQuality = function() {
-  return this.qualityArray[this.quality];
-};
-
-//Need to change this so that card info is stored and prepended to DOM without having to reload EVERY SINGLE CARD.
-
-
 function clearInputs() {
   $('.idea-title').val('');
   $('.idea-body').val('');
@@ -75,7 +63,6 @@ function disableButton() {
  $('.save-button').attr('disabled', true);
 };
 
-//Pass the entire object instead of separate objects
 function storeCard() {
   var id = Date.now();
   var ideaCard = new Idea($('.idea-title').val(), $('.idea-body').val(), id)
@@ -83,35 +70,7 @@ function storeCard() {
   prependCard(ideaCard);
 };
 
-//Rename to getStorage?
-//Move the template literal for var card to new function appendCard - functionaliy for function reduced solely to pulling everything from localStorage. IT DOES NOTHING ELSE.
-
-// function getStorage(foo) {
-//   JSON.parse(localStorage.getItem(foo));
-
-//   // var ideaArray = [];
-//   // for (var i = 0; i < localStorage.length; i++) {
-//   //   var parsed = JSON.parse(localStorage.getItem(localStorage.key(i)));
-//   //   ideaArray.push(parsed);  
-
-
-//   //   var card = `<article id=${ideaArray[i].id} class="card">
-//   //                 <h2 contenteditable="true">${ideaArray[i].title}</h2>
-//   //                 <span class="svg delete" title="delete-button" alt="delete idea"></span>
-//   //                 <p contenteditable="true">${ideaArray[i].body}</p>
-//   //                 <span class="svg upvote" alt="up vote"></span>
-//   //                 <span class="svg downvote" alt="down vote"></span>
-//   //                 <span id="quality" class=${ideaArray[i].id}>Quality: ${ideaArray[i].qualityArray[ideaArray[i].quality]}</span>
-//   //               </article>`
-//   // }
-//   // $('.idea-display').append(card);
-// };
-
-//This function ONLY prepends cards to the DOM. NOTHING ELSE. It is passed an object will determine where things need to go from there.
-//What happens when it is passed an array? Run a for loop through the entire array?
-
 function prependCard(obj) {
-  
   var card = `<article id=${obj['id']} class="card">
                 <h2 contenteditable="true">${obj['title']}</h2>
                 <span class="svg delete" title="delete-button" alt="delete idea"></span>
@@ -120,67 +79,20 @@ function prependCard(obj) {
                 <span class="svg downvote" alt="down vote"></span>
                 <span id="quality" class=${obj['id']}>Quality: ${obj.qualityArray[obj.quality]}</span>
               </article>`
-
   $('.idea-display').prepend(card);
 };
 
-//Feels unnecessary to use getStorage here since it's really just one line of code - do we just delete getStorage instead?
 function showOnLoad() {
  for (var i = 0; i < localStorage.length; i++) {
   var pants = JSON.parse(localStorage.getItem(localStorage.key(i)));
   prependCard(pants);
  } 
- 
-
-  // var ideaArray = [];
-  // for (var i = 0; i < localStorage.length; i++) {
-  //   var parsed = JSON.parse(localStorage.getItem(localStorage.key(i)));
-  //   ideaArray.push(parsed);
-  //   //CALL APPENDCARD FUNCTION HERE
-  //   // assignQuality(ideaArray[i]);
-  //   // $('.idea-display').append((ideaArray[i]));
-  // }
 };
 
-//IS IT EVEN NECESSARY TO HAVE THIS IF I CAN REFERENCE THE QUALITY ARRAY IN THE IDEA OBJECT? WHY HAVE THIS AND OVER COMPLICATE?
-function assignQuality(idea) {
-  //Necessary to have this var qualityArray here? Can we take this out and call the qualityArray in the Idea Object?
-  //Set var qualityWord to the qualityArray in the Idea Object.
-
-  var qualityArray = ['Swill','Plausible','Genius'];
-  var qualityWord = qualityArray[i];
-  for (var i = 0; i < qualityArray.length; i++) {
-    if (idea.quality === 0) {
-      var qualityWord = qualityArray[i];
-    }
-  }
-
-  // if (idea.quality == 1) {
-  //   qualityWord = 'Quality: Swill'
-  // } else if (idea.quality == 2) {
-  //   qualityWord = 'Quality: Plausible'
-  // } else if (idea.quality == 3) {
-  //   qualityWord = 'Quality: Genius'
-  // }
-
- //CALL APPENDCARD FUNCTION HERE
- // var card = `<article id=${idea.id} class="card">
- //                <h2 contenteditable="true">${idea.title}</h2>
- //                <span class="svg delete" title="delete-button" alt="delete idea"></span>
- //                <p contenteditable="true">${idea.body}</p>
- //                <span class="svg upvote" alt="up vote"></span>
- //                <span class="svg downvote" alt="down vote"></span>
- //                <span id="quality" class=${idea.id}>Quality: ${idea.qualityArray[idea.qualityArray]}</span>
- //              </article>`
- //  return card;
-};
-
-//commented out var $searchIdeas to show that it's unnecessary
 function searchIdeas(){
   var cardsOnDom = Array.from($('.card'));
-  // var $searchIdeas = $('.search-ideas');
   $('.card').hide();
-  cardsOnDom.forEach(function(card) {
+  cardsOnDom.forEach(function() {
     $("p:contains("+$('.search-ideas').val()+")").closest('article').show();
     $("h2:contains("+$('.search-ideas').val()+")").closest('article').show();
   })
@@ -239,4 +151,3 @@ function editBody(foo) {
   parsedIdea.body = newBody;
   localStorage.setItem(parentArticle, JSON.stringify(parsedIdea));
 };
-
