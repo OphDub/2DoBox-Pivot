@@ -1,9 +1,34 @@
+/* Global Styling */
 body {
-font-family: open-sans;
-font-size: 20px;
-margin: auto;
-text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  margin: auto;
+  text-align: center;
 }
+
+::-webkit-input-placeholder {
+  color: #D1D3D4;
+}
+
+form {
+  display: inline-block;
+  margin: auto;
+  text-align: left;
+  width: 100%;
+}
+
+input {
+  box-sizing: border-box;
+}
+
+.task-title:focus, .task-body:focus, h2:focus, p:focus {
+  outline: none;
+}
+.interactive-elements {
+  width: 43%;
+}
+
+/* Header Styling */
 
 .user-input {
   background: #E5F3F2;
@@ -19,12 +44,12 @@ header {
 h1 {
   color: #6D6E71;
   font-size: 2em;
-  font-family: Roboto Slab;
+  font-family: 'Roboto Slab', serif;
   padding-top: 0px;
   padding-bottom: 10px;
 }
 
-.idea {
+.task {
   color: #00A79D;
 }
 
@@ -33,35 +58,15 @@ h1 {
   text-align: center;
 }
 
-form {
-  display: inline-block;
-  margin: auto;
-  text-align: left;
-  width: 100%;
-}
-
-input {
-  box-sizing: border-box;
-}
-
-.idea-title {
+.task-title {
   display: block;
   outline-style: none;
   border: 1px solid #CCCCCC;
   padding: 2px;
   margin: 10px auto;
-  width: 85vh;
 }
 
-.idea-title:focus, .idea-body:focus, h2:focus, p:focus {
-  outline: none;
-}
-
-.idea-title::-webkit-input-placeholder {
-  color: #D1D2D4;
-}
-
-.idea-body {
+.task-body {
   border-color: #CCCCCC;
   box-sizing: border-box;
   display: block;
@@ -71,24 +76,20 @@ input {
   margin: 10px auto;
   outline-style: none;
   padding: 2px;
-  width: 85vh;
   resize: none;
-}
-
-.idea-body::-webkit-input-placeholder {
-  color: #D1D3D4;
 }
 
 .save-button{
   background:#00A79D;
+  border: 0;
   color: white;
   display: block;
+  font-size: 16px;
+  height: 25px;
   margin: 10px auto;
   margin-bottom: 15px;
   outline-style: none;
-  padding: 2px;
   transition: background 1s;
-  width: 85vh;
 }
 
 .save-button:disabled {
@@ -99,14 +100,13 @@ input {
   background:#045E55;
 }
 
-.idea-display{
+.task-display{
   width: 100%;
 }
 
-.search-ideas {
+.search-tasks {
   margin: 15px 0px;
   outline-style: none;
-  width: 85vh;
 }
 
 .card {
@@ -114,13 +114,12 @@ input {
   margin: 0vh auto 5vh auto;
   padding-bottom: 3vh; 
   text-align: left;
-  width: 85vh;
   }
 
 .card h2 {
   color: #6D6E71;
   display: inline;
-  font-family: Open-Sans;
+  font-family: 'Open Sans', sans-serif;
   font-size: .8em;
 }
 
@@ -145,7 +144,9 @@ input {
   max-height: 50px;
   max-width: 50px;
   }
-
+button {
+  border: none;
+}
 .svg.upvote {
   background: url("images/upvote.svg");
   display: inline-block;
@@ -179,19 +180,19 @@ input {
     margin: 0 auto;
   }
 
-  .idea-title {
+  .task-title {
     font-size: 20px;
     width: 85%;
   }
 
-  .idea-body {
+  .task-body {
     width: 85%;
     max-height: none;
     min-height: 30px;
     font-size: 20px;
   }
 
-  .idea-display {
+  .task-display {
     width: 100%;
   }
 
@@ -199,7 +200,7 @@ input {
     width: 85%;
   }
   
-  .search-ideas {
+  .search-tasks {
     width: 85%;
     border: 1px solid #CCCCCC;  
   }
@@ -214,22 +215,22 @@ input {
     margin: 0 auto;
   }
 
-  .idea-title {
+  .task-title {
     font-size: 20px;
   }
 
-  .idea-body {
+  .task-body {
     max-height: none;
     min-height: 105px;
     height: 15vh;
     font-size: 20px;
   }
 
-  .idea-display {
+  .task-display {
     width: 100%;
   }
   
-  .search-ideas {
+  .search-tasks {
     width: 85%;
     border: 1px solid #CCCCCC;  
   }
