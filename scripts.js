@@ -22,21 +22,21 @@ function Task(title, body, id) {
   this.quality = 1;
 }
 
-$saveButton.on('click', function(e) {
+$('.save-button').on('click', function(e) {
   e.preventDefault();
   storeCard();
   clearInputs();
   disableButton();
-  $taskTitle.focus();
+  $('.task-title').focus();
 });
 
-$taskBody.on('keydown', function(e) {
+$('.task-body').on('keydown', function(e) {
   if (e.keyCode == 13 && !e.shiftKey){
     e.preventDefault();
     storeCard();
     clearInputs();
     disableButton();
-    $taskTitle.focus();
+    $('.task-title').focus();
   }
 });
 
