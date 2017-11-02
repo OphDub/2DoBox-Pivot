@@ -45,8 +45,8 @@ function Task(title, body, id) {
   this.title = title;
   this.body = body;
   this.id = id;
-  this.quality = 0;
-  this.qualityArray = ['Swill', 'Plausible', 'Genius'];
+  this.quality = 2;
+  this.qualityArray = ['None','Low','Normal','High','Critical'];
 };
 
 function clearInputs() {
@@ -115,7 +115,7 @@ function storeQuality(key, task) {
 function upvote() {
   var parentArticle = this.closest('article').id;
   var parsedTask = JSON.parse(localStorage.getItem(parentArticle));
-  if (parsedTask.quality < 2) {
+  if (parsedTask.quality < 5) {
     parsedTask.quality++;
   }
   for (var i = 0; i < parsedTask.qualityArray.length; i++) {
