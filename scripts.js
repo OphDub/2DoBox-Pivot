@@ -1,7 +1,7 @@
 $(document).ready(function() { 
 
 showOnLoad();
-searchTasks();
+// searchTasks();
 
 });
 
@@ -123,12 +123,12 @@ function assignQuality(task) {
 
 function searchTasks(){
   var cardsOnDom = Array.from($('.card'));
-  var $searchTasks = $('.search-tasks');
+  // var $searchTasks = $('.search-tasks');
   $('.card').hide();
   cardsOnDom.forEach(function(card) {
-    $("p:contains("+$searchTasks.val()+")").closest('article').show();
-    $("h2:contains("+$searchTasks.val()+")").closest('article').show();
-  })
+    $("p:contains("+$('.search-tasks').val()+")").closest('article').show();
+    $("h2:contains("+$('.search-tasks').val()+")").closest('article').show();
+  });
 };
 
 $('.task-display').on('click', '.delete', function() {
