@@ -75,7 +75,7 @@ function storeCard() {
 };
 
 function prependCard(obj) {
-  var card = `<article id=${obj['id']} class="card">
+  var card = `<article id=${obj['id']} class="card interactive-elements">
                 <h2 contenteditable="true">${obj['title']}</h2>
                 <button class="svg delete" title="delete-button" alt="delete idea"></button>
                 <p contenteditable="true">${obj['body']}</p>
