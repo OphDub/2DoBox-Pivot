@@ -148,15 +148,3 @@ function editBody(card) {
   parsedTask.body = newBody;
   localStorage.setItem(parentArticle, JSON.stringify(parsedTask));
 };
-
-function importanceFilter() {
-  $('select').change(function() {
-    var pants = $(this);
-    console.log(pants);
-    if(pants.val() === '' ) {
-      $('.card').show();
-    }
-      $('.card').hide();
-      $('.card' + pants.val()).show();
-  })
-};
