@@ -14,6 +14,7 @@ $('.task-display').on('blur', 'h2', function(){
 $('.task-display').on('blur', 'p', function(){
   editBody(this);
 });
+$('.task-display').on('click', '.completed-btn', markAsComplete);
 
 function Task(title, body, id) {
   this.title = title;
@@ -67,6 +68,15 @@ function disableButton() {
  $('.save-button').attr('disabled', true);
 };
 
+function markAsComplete() {
+  var currentCardId = this.closest('article').id;
+  var pants = JSON.parse(localStorage.getItem(currentCardId));
+  var parentArticle = $(this).closest('article');
+
+  pants.toggleClass('completed-task-card');
+  localStorage.setItem(currentCardId, JSON.stringify(pants))
+}
+
 function storeCard() {
   var id = Date.now();
   var taskCard = new Task($('.task-title').val(), $('.task-body').val(), id)
@@ -82,6 +92,7 @@ function prependCard(obj) {
                 <button class="svg upvote" alt="up vote"></button>
                 <button class="svg downvote" alt="down vote"></button>
                 <span id="quality" class=${obj['id']}>Quality: ${obj.qualityArray[obj.quality]}</span>
+                <button class="completed-btn">Mark as complete</button>
               </article>`
   $('.task-display').prepend(card);
 };

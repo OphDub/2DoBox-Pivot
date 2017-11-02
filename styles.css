@@ -25,6 +25,7 @@ input {
   outline: none;
 }
 .interactive-elements {
+  height: 25px;
   width: 43%;
 }
 
@@ -70,9 +71,8 @@ h1 {
   border-color: #CCCCCC;
   box-sizing: border-box;
   display: block;
-  height: 3.5vh;
   min-height: 20px;
-  max-height: 20px; 
+  /*max-height: 20px; */
   margin: 10px auto;
   outline-style: none;
   padding: 2px;
@@ -85,7 +85,6 @@ h1 {
   color: white;
   display: block;
   font-size: 16px;
-  height: 25px;
   margin: 10px auto;
   margin-bottom: 15px;
   outline-style: none;
@@ -110,10 +109,12 @@ h1 {
 }
 
 .card {
+  position: relative;
   border-bottom: 1px solid #D1D3D4;
-  margin: 0vh auto 5vh auto;
+  margin: 0vh auto 20px;
   padding-bottom: 3vh; 
   text-align: left;
+  height: 80px;
   }
 
 .card h2 {
@@ -130,8 +131,10 @@ h1 {
 }
 
 .svg.delete {
-   background: url("images/delete.svg");
-   float: right;
+  position: absolute;
+  top: 9%;
+  right: 1%;
+  background: url("images/delete.svg");
  }
 
 .svg {
@@ -173,6 +176,19 @@ button {
 #quality {
   color:#6D6E71;
   font-size: 0.6em;
+}
+
+.completed-btn {
+  position: absolute;
+  right: 1%;
+  bottom: 19%;
+  color:#6D6E71;
+  font-size: 0.6em;
+  background: none;
+}
+.completed-task-card {
+  color: red;
+  background-color: #FF0066;
 }
 
 @media screen and (max-width: 800px) {
